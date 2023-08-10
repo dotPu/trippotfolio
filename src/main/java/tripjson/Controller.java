@@ -101,7 +101,8 @@ public class Controller {
 	public ModelAndView tripjson(ModelAndView mv,@RequestBody List<Map<String,Object>> info) {
 		System.out.println("test");
 		System.out.println(info.get(1));
-		mv.addAllObjects((Map<String, Object>) info);
+		String addr = (String)info.get(1).get("addr1");
+		mv.addObject("tripaddr",addr);
 		mv.setViewName("tripjson");
 		return mv;
 	}
