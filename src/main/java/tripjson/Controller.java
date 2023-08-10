@@ -3,6 +3,7 @@ package tripjson;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -60,7 +61,7 @@ public class Controller {
 	
 	@PostMapping("/senddata")
 	public String senddata(@RequestBody List<Map<String, Object>> t) {
-		System.out.println(t.get(1).get("addr1"));
+		System.out.println("addrl : " + t.get(1).get("addr1"));
 		TripVO[] vo = null;
 		for(int i = 0; i < 10; i++) {
 			vo[i] = new TripVO();
@@ -97,15 +98,27 @@ public class Controller {
 //	}
 	
 	
-	@PostMapping("/tripjson")
-	public ModelAndView tripjson(ModelAndView mv,@RequestBody List<Map<String,Object>> info) {
+	@PostMapping("/resttripjson")
+	public JSONObject tripjson(@RequestBody List<Map<String,Object>> info) {
 		System.out.println("test");
 		System.out.println(info.get(1));
-		String addr = (String)info.get(1).get("addr1");
-		mv.addObject("tripaddr",addr);
-		mv.setViewName("tripjson");
-		return mv;
+//		String addr1 = (String) info.get(1).get("addr1");
+//		System.out.println(addr1);
+		
+		JSONObject addrJsonObject = new JSONObject(info.get(1));
+		
+		return addrJsonObject;
 	}
 	
-	
+//	@PostMapping("/resttripjson")
+//	public ModelAndView tripjson(@RequestBody List<Map<String,Object>> info) {
+//		ModelAndView mv = new ModelAndView();
+//		System.out.println("test");
+//		System.out.println(info.get(1));
+//		String addr = (String)info.get(1).get("addr1");
+//		mv.addObject("tripaddr",addr);
+//		mv.setViewName("tripjson");
+//		
+//		return mv;
+//	}
 }
